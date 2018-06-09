@@ -10,7 +10,7 @@ EMR version: emr-4.9.4
 
 DNS: ec2-34-208-176-32.us-west-2.compute.amazonaws.com
 
-Key-pair: bootcamp.pem, bootcamp.ppk
+Key-pair: xxxx.pem, xxxx.ppk
 
 Hostname: ip-172-31-28-92
 
