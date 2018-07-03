@@ -5,6 +5,29 @@ CASE STUDY: BUILD A DASHBOARD USING KAFKA,SPARK,NODE.JS USING ORDERS DATA
 
 ****************************************************************************
 
+## Objective
+
+  To build an analytics dashboard to visualize number of orders getting shipped in every 10 secs interval of time using Spark, Kafka,     node.js
+  
+## Data description
+
+Dataset contains CSV files comprises shipping details of an e-commerce website.
+
+Dataset contains three columns ‘DateTime’, ‘OrderId’ & ‘Status’
+![alt text](images/output9.png)
+  
+## Tools & Technologies used
+
+Best suited technologies:
+
+ Apache Kafka
+
+ Apache Spark
+
+ Node.js
+
+ High Charts 
+
 EMR Cluster details
 
 Cluster name: Bootcamp-Spark1
@@ -13,7 +36,7 @@ EMR version: emr-4.9.4
 
 DNS: ec2-34-208-176-32.us-west-2.compute.amazonaws.com
 
-Key-pair: bootcamp.pem, bootcamp.ppk
+Key-pair: xxx.pem, xxx.ppk
 
 Hostname: ip-172-31-28-92
 
