@@ -262,12 +262,12 @@ http://ec2-34-208-176-32.us-west-2.compute.amazonaws.com:3001/
       
  // Terminal 4: Using socket.io, data is streamed from node.js console to Highcharts
  
-       ![alt text](images/output4.png)
-       ![alt text](images/output5.png)
-       ![alt text](images/output6.png)
-       ![alt text](images/output7.png)
-       ![alt text](images/output8.png)
-       ![alt text](images/output9.png)
+   ![alt text](images/output4.png)
+   ![alt text](images/output5.png)
+   ![alt text](images/output6.png)
+   ![alt text](images/output7.png)
+   ![alt text](images/output8.png)
+   ![alt text](images/output9.png)
        
 ## Future Possibilites
  
