@@ -250,15 +250,15 @@ http://ec2-34-208-176-32.us-west-2.compute.amazonaws.com:3001/
 
 // Terminal 1: Data is being pushed to a topic named orders_data
 
-    ![alt text](images/output1.png)
+   ![alt text](images/output1.png)
     
 // Terminal 2: Data is read from topic orders_data by Spark streaming in 10 secs interval & pushed to another Kafka topic namely orders_ten_sec_data
     
-     ![alt text](images/output2.png)
+   ! [alt text](images/output2.png)
      
  // Terminal 3: Data is read from topic orders_ten_sec_data and pushed to index.js file
- 
-      ![alt text](images/output3.png)
+    
+   ![alt text](images/output3.png)
       
  // Terminal 4: Using socket.io, data is streamed from node.js console to Highcharts
  
