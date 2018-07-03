@@ -254,7 +254,7 @@ http://ec2-34-208-176-32.us-west-2.compute.amazonaws.com:3001/
     
 // Terminal 2: Data is read from topic orders_data by Spark streaming in 10 secs interval & pushed to another Kafka topic namely orders_ten_sec_data
     
-   ! [alt text](images/output2.png)
+   ![alt text](images/output2.png)
      
  // Terminal 3: Data is read from topic orders_ten_sec_data and pushed to index.js file
     
@@ -267,8 +267,7 @@ http://ec2-34-208-176-32.us-west-2.compute.amazonaws.com:3001/
    ![alt text](images/output6.png)
    ![alt text](images/output7.png)
    ![alt text](images/output8.png)
-   ![alt text](images/output9.png)
-       
+          
 ## Future Possibilites
  
  1. Similarly we can build more dashboards for analysis such as,
