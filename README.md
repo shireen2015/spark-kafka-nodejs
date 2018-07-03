@@ -205,39 +205,39 @@ vi index.js
     var io = require('socket.io')(http);
     var kafka = require('kafka-node');
     var HighLevelConsumer = kafka.HighLevelConsumer;
-     var Offset = kafka.Offset;
-var Client = kafka.Client;
-var topic = 'orders_ten_sec_data';
-var client = new Client('localhost:2181', "worker-" + Math.floor(Math.random() * 10000));
-var payloads = [{ topic: topic }];
-var consumer = new HighLevelConsumer(client, payloads);
-var offset = new Offset(client);
-var port = 3001;
+    var Offset = kafka.Offset;
+    var Client = kafka.Client;
+    var topic = 'orders_ten_sec_data';
+    var client = new Client('localhost:2181', "worker-" + Math.floor(Math.random() * 10000));
+    var payloads = [{ topic: topic }];
+    var consumer = new HighLevelConsumer(client, payloads);
+    var offset = new Offset(client);
+    var port = 3001;
 
-app.get('/', function(req, res){
-    res.sendfile('index.html');
-});
-
-io = io.on('connection', function(socket){
-    console.log('a user connected');
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
+    app.get('/', function(req, res){
+       res.sendfile('index.html');
     });
-});
 
-consumer = consumer.on('message', function(message) {
-    console.log(message.value);
-    io.emit("message", message.value);
-});
+     io = io.on('connection', function(socket){
+         console.log('a user connected');
+         socket.on('disconnect', function(){
+         console.log('user disconnected');
+     });
+     });
 
-http.listen(port, function(){
-    console.log("Running on port " + port)
-});
+    consumer = consumer.on('message', function(message) {
+        console.log(message.value);
+        io.emit("message", message.value);
+     });
 
+     http.listen(port, function(){
+         console.log("Running on port " + port)
+     });
 
+// Command to run node.js file
 node index.js
 
-After node server is started, go to http://YOUR_WEB_CONSOLE:PORT_NUMBER to access the real-time analytics dashboard
+// After node server is started, go to http://YOUR_WEB_CONSOLE:PORT_NUMBER to access the real-time analytics dashboard
 
 http://ec2-34-208-176-32.us-west-2.compute.amazonaws.com:3001/
 
@@ -245,7 +245,43 @@ http://ec2-34-208-176-32.us-west-2.compute.amazonaws.com:3001/
 ----------------------------------------------------------------------------------------------------------------------------------------------
 ----------------------------------------------------------------------------------------------------------------------------------------------
 
-** ERROR **
+
+## Screenshots
+
+// Terminal 1: Data is being pushed to a topic named orders_data
+
+    ![alt text](images/output1.png)
+    
+// Terminal 2: Data is read from topic orders_data by Spark streaming in 10 secs interval & pushed to another Kafka topic namely orders_ten_sec_data
+    
+     ![alt text](images/output2.png)
+     
+ // Terminal 3: Data is read from topic orders_ten_sec_data and pushed to index.js file
+ 
+      ![alt text](images/output3.png)
+      
+ // Terminal 4: Using socket.io, data is streamed from node.js console to Highcharts
+ 
+       ![alt text](images/output4.png)
+       ![alt text](images/output5.png)
+       ![alt text](images/output6.png)
+       ![alt text](images/output7.png)
+       ![alt text](images/output8.png)
+       ![alt text](images/output9.png)
+       
+## Future Possibilites
+ 
+ 1. Similarly we can build more dashboards for analysis such as,
+
+i) Most purchased products
+
+ii) Most viewed
+
+2. For different products using e-commerce data.
+
+We can also Splunk, Datameer, Tableau for creating dashboards instead of High charts      
+
+## ** ERROR **
 
 // Problem 1: YarnScheduler: Initial job has not accepted any resources; check your cluster UI to ensure that workers are registered and have sufficient resources
 
