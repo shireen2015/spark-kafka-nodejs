@@ -20,17 +20,17 @@ Dataset contains three columns ‘DateTime’, ‘OrderId’ & ‘Status’
 
 Best suited technologies:
 
- Apache Kafka
+ 1. Apache Kafka
 
- Apache Spark
+ 2. Apache Spark
 
- Node.js
+ 3. Node.js
 
- High Charts 
+ 4. High Charts 
 
-EMR Cluster details
+## EMR Cluster details
 
-Cluster name: Bootcamp-Spark1
+Cluster name: S park1
 
 EMR version: emr-4.9.4	
 
@@ -117,16 +117,16 @@ cd spark-project/spark_dashboard/kafka
 
 vi push_orders_data_in_topic.sh
 
-#!/bin/bash
+    #!/bin/bash
 
-export PATH=$PATH:/home/ec2-user/kafka/bin
-FILES=$1/*.csv
-for f in $FILES
-do
-    echo "pushing $f file"
-    cat $f | kafka-console-producer.sh --broker-list $2  --topic $3
-    sleep 60
-done
+    export PATH=$PATH:/home/ec2-user/kafka/bin
+    FILES=$1/*.csv
+    for f in $FILES
+    do
+        echo "pushing $f file"
+        cat $f | kafka-console-producer.sh --broker-list $2  --topic $3
+        sleep 60
+    done
 
 
 /bin/bash push_orders_data_in_topic.sh ../data/ordersdata ip-172-31-28-92:9092 orders_data
@@ -134,7 +134,7 @@ done
 
 
 
-// Spark
+## Spark
 
 export PATH=$PATH:/home/ec2-user/kafka/bin 
 
@@ -148,39 +148,40 @@ pip install pykafka
 
 vi spark_streaming_order_status.py
 
-from pyspark import SparkContext
-from pyspark.streaming import StreamingContext
-from pyspark.streaming.kafka import KafkaUtils
-from pykafka import KafkaClient
-import json
-import sys
-import pprint
+    from pyspark import SparkContext
+    from pyspark.streaming import StreamingContext
+    from pyspark.streaming.kafka import KafkaUtils
+    from pykafka import KafkaClient
+    import json
+    import sys
+    import pprint
 
-def pushOrderStatusInKafka(status_counts):
-    client = KafkaClient(hosts="ip-172-31-28-92:9092")
-    topic = client.topics['orders_ten_sec_data']
-    for status_count in status_counts:
+    def pushOrderStatusInKafka(status_counts):
+        client = KafkaClient(hosts="ip-172-31-28-92:9092")
+        topic = client.topics['orders_ten_sec_data']
+        for status_count in status_counts:
             with topic.get_producer() as producer:
                     producer.produce(json.dumps(status_count))
 
-zkQuorum, topic = sys.argv[1:]
-sc = SparkContext("local[2]", "KafkaOrderCount")
-ssc = StreamingContext(sc, 10)
-kvs = KafkaUtils.createStream(ssc, zkQuorum, "spark-streaming-consumer", {topic: 1})
-lines = kvs.map(lambda x: x[1])
-status_count = lines.map(lambda line: line.split(",")[2]) \
+     zkQuorum, topic = sys.argv[1:]
+     sc = SparkContext("local[2]", "KafkaOrderCount")
+     ssc = StreamingContext(sc, 10)
+     kvs = KafkaUtils.createStream(ssc, zkQuorum, "spark-streaming-consumer", {topic: 1})
+     lines = kvs.map(lambda x: x[1])
+     status_count = lines.map(lambda line: line.split(",")[2]) \
               .map(lambda order_status: (order_status, 1)) \
               .reduceByKey(lambda a, b: a+b)
-status_count.pprint()
-status_count.foreachRDD(lambda rdd: rdd.foreachPartition(pushOrderStatusInKafka))
-ssc.start()
-ssc.awaitTermination()
+     status_count.pprint()
+     status_count.foreachRDD(lambda rdd: rdd.foreachPartition(pushOrderStatusInKafka))
+     ssc.start()
+     ssc.awaitTermination()
 
+// Command to start Spark application
 
 spark-submit --jars spark-streaming-kafka-assembly_2.10-1.6.0.jar spark_streaming_order_status.py localhost:2181 orders_data
 
 
-// Node.js
+## Node.js
 
 
 cd spark-project/spark_dashboard/nodejs
@@ -199,12 +200,12 @@ npm install kafka-node
 
 vi index.js
 
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var kafka = require('kafka-node');
-var HighLevelConsumer = kafka.HighLevelConsumer;
-var Offset = kafka.Offset;
+    var app = require('express')();
+    var http = require('http').Server(app);
+    var io = require('socket.io')(http);
+    var kafka = require('kafka-node');
+    var HighLevelConsumer = kafka.HighLevelConsumer;
+     var Offset = kafka.Offset;
 var Client = kafka.Client;
 var topic = 'orders_ten_sec_data';
 var client = new Client('localhost:2181', "worker-" + Math.floor(Math.random() * 10000));
