@@ -30,7 +30,7 @@ Best suited technologies:
 
 ## EMR Cluster details
 
-Cluster name: S park1
+Cluster name: Spark1
 
 EMR version: emr-4.9.4	
 
